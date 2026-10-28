@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>南京 · 五一三日游攻略</title>
+<style>
+  :root{
+    --bg:#f4f6fb;
+    --ink:#1a1c2e;
+    --muted:#6b7280;
+    --card:#ffffff;
+    --line:#e7eaf5;
+    --grad:linear-gradient(135deg,#ff6ec4 0%,#7873f5 52%,#37d6d6 100%);
+    --grad-soft:linear-gradient(135deg,#fff0fa 0%,#eef0ff 52%,#e6fbfb 100%);
+    --shadow:0 12px 34px rgba(84,92,180,.10);
+    --radius-lg:20px;
+    --radius-md:14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:34px 20px 64px;}
+
+  /* ---------- Header ---------- */
+  header{text-align:center;margin-bottom:30px;}
+  h1{
+    font-size:38px;font-weight:800;letter-spacing:2px;margin:0 0 8px;
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;
+    color:transparent;display:inline-block;
+  }
+  .subtitle{color:var(--muted);font-size:15px;letter-spacing:1px;}
+  .badges{margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+  .badge{
+    font-size:13px;color:#5a40c8;background:#eef0ff;
+    border:1px solid #dcdffe;border-radius:999px;padding:5px 14px;
+  }
+
+  /* ---------- Section ---------- */
+  section{margin-bottom:34px;}
+  .sec-head{display:flex;align-items:center;gap:10px;margin:0 2px 16px;}
+  .sec-head h2{font-size:20px;font-weight:800;margin:0;letter-spacing:.5px;}
+  .sec-head .bar{width:5px;height:22px;border-radius:3px;background:var(--grad);}
+
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);
+  }
+
+  /* ---------- Weather ---------- */
+  .weather-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .weather-card{
+    padding:20px;position:relative;overflow:hidden;
+    background:var(--grad-soft);border:1px solid #e4e7fb;border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);
+  }
+  .weather-card .date{font-size:15px;font-weight:700;color:#4b4f6e;}
+  .weather-card .date span{font-size:12px;color:var(--muted);font-weight:500;margin-left:6px;}
+  .weather-card .icon{font-size:40px;line-height:1;margin:10px 0 6px;}
+  .weather-card .cond{font-size:17px;font-weight:700;color:#2b2e4a;}
+  .weather-card .cond small{font-size:12px;color:var(--muted);font-weight:500;margin-left:6px;}
+  .temp{font-size:30px;font-weight:800;margin-top:6px;background:var(--grad);
+        -webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block;}
+  .temp small{font-size:14px;color:var(--muted);-webkit-text-fill-color:var(--muted);margin-left:8px;font-weight:600;}
+  .weather-card .meta{margin-top:10px;font-size:12.5px;color:#5b6178;}
+  .weather-card .wind{color:#7a4fd8;}
+  .weather-note{font-size:12.5px;color:var(--muted);margin-top:12px;}
+
+  /* ---------- Tips ---------- */
+  .tips-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .tip{padding:18px 18px 16px;display:flex;gap:12px;align-items:flex-start;
+       background:var(--card);border:1px solid var(--line);border-radius:var(--radius-md);
+       box-shadow:var(--shadow);}
+  .tip .ti{font-size:24px;line-height:1;}
+  .tip h3{margin:0 0 4px;font-size:15px;font-weight:800;}
+  .tip p{margin:0;font-size:13px;color:#5b6178;}
+
+  /* ---------- Map ---------- */
+  .map-card{padding:18px;background:var(--card);border:1px solid var(--line);
+            border-radius:var(--radius-lg);box-shadow:var(--shadow);}
+  .map-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+  .map-tab{
+    border:1px solid #dcdffe;background:#fff;color:#4b4f6e;
+    padding:7px 16px;border-radius:999px;font-size:13.5px;font-weight:700;cursor:pointer;
+    transition:.15s;
+  }
+  .map-tab:hover{border-color:#b9b6ff;}
+  .map-tab.on{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 6px 16px rgba(120,115,245,.35);}
+  .map-frame{width:100%;height:440px;border:1px solid var(--line);border-radius:var(--radius-md);background:#eef1f8;}
+  .map-tip{margin-top:12px;font-size:12.5px;color:var(--muted);}
+  .map-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;gap:7px;
+    padding:9px 16px;border-radius:12px;font-size:13.5px;font-weight:700;
+    text-decoration:none;border:none;cursor:pointer;transition:.15s;
+  }
+  .btn-main{background:var(--grad);color:#fff;box-shadow:0 8px 20px rgba(120,115,245,.30);}
+  .btn-main:hover{filter:brightness(1.06);}
+  .btn-ghost{background:#fff;color:#5a40c8;border:1px solid #dcdffe;}
+  .btn-ghost:hover{background:#f6f5ff;}
+
+  /* ---------- Day plan ---------- */
+  .day{margin-bottom:26px;overflow:hidden;}
+  .day-top{padding:18px 22px;background:var(--grad-soft);border-bottom:1px solid #e4e7fb;
+           display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .day-no{
+    font-size:14px;font-weight:800;color:#fff;background:var(--grad);
+    padding:6px 14px;border-radius:999px;letter-spacing:.5px;
+  }
+  .day-title{font-size:18px;font-weight:800;margin:0;}
+  .day-meta{font-size:13px;color:var(--muted);margin-left:auto;}
+  .day-theme{font-size:12px;color:#5a40c8;background:#eef0ff;border:1px solid #dcdffe;
+             border-radius:999px;padding:3px 12px;font-weight:700;}
+  .day-body{padding:20px 22px;}
+
+  .spot{
+    display:flex;gap:16px;padding:14px;border:1px solid var(--line);
+    border-radius:var(--radius-md);background:#fff;
+  }
+  .spot-img{width:172px;height:124px;border-radius:12px;object-fit:cover;flex:0 0 172px;
+            background:var(--grad);}
+  .spot-info{flex:1;min-width:0;}
+  .spot-info .name{font-size:17px;font-weight:800;margin:0 0 2px;}
+  .spot-info .time{display:inline-block;font-size:12px;font-weight:700;color:#0f9b8e;
+                   background:#e6fbfb;border-radius:999px;padding:2px 10px;margin-bottom:6px;}
+  .spot-info .addr{font-size:12.5px;color:var(--muted);margin:4px 0;}
+  .spot-info .desc{font-size:13px;color:#5b6178;margin:6px 0 10px;}
+  .spot-info .links{display:flex;gap:8px;flex-wrap:wrap;}
+  .spot-index{
+    font-size:12px;font-weight:800;color:#fff;background:var(--grad);
+    width:24px;height:24px;border-radius:8px;display:inline-flex;align-items:center;
+    justify-content:center;margin-right:8px;vertical-align:middle;
+  }
+
+  .ride{
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    margin:12px 4px;padding:12px 16px;
+    background:linear-gradient(135deg,#fff7fb 0%,#f4f4ff 100%);
+    border:1px dashed #d7d9f5;border-radius:var(--radius-md);
+  }
+  .ride .car{font-size:22px;}
+  .ride .route-text{font-size:13.5px;font-weight:700;color:#3d4160;}
+  .ride .stat{font-size:12.5px;color:var(--muted);}
+  .ride .stat b{color:#7a4fd8;}
+  .ride .spacer{flex:1;}
+  .ride .rail{
+    position:relative;padding-left:14px;font-size:12.5px;color:#7a4fd8;font-weight:700;
+  }
+
+  footer{text-align:center;color:var(--muted);font-size:12.5px;margin-top:40px;line-height:1.9;}
+  .foot-grad{height:4px;border-radius:3px;background:var(--grad);max-width:180px;margin:0 auto 18px;}
+
+  @media (max-width:820px){
+    .weather-grid,.tips-grid{grid-template-columns:1fr;}
+    .spot{flex-direction:column;}
+    .spot-img{width:100%;height:170px;flex:none;}
+    h1{font-size:30px;}
+    .day-meta{margin-left:0;width:100%;}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1 id="h1">南京 · 五一三日游</h1>
+      <div class="subtitle" id="subtitle"></div>
+      <div class="badges">
+        <span class="badge">🎫 每日 3 景区</span>
+        <span class="badge">🚕 景区间打车直达</span>
+        <span class="badge">🗺️ 高德地图路线</span>
+        <span class="badge">⛅ 三日天气</span>
+      </div>
+    </header>
+
+    <section>
+      <div class="sec-head"><span class="bar"></span><h2>三日天气与出行提示</h2></div>
+      <div class="weather-grid" id="weatherGrid"></div>
+      <div class="weather-note" id="weatherNote"></div>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="bar"></span><h2>旅行小贴士</h2></div>
+      <div class="tips-grid" id="tipsGrid"></div>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="bar"></span><h2>高德地图 · 三日游路线</h2></div>
+      <div class="map-card">
+        <div class="map-tabs" id="mapTabs"></div>
+        <iframe id="mapFrame" class="map-frame" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <div class="map-actions">
+          <a class="btn btn-main" id="appMapBtn" target="_blank" rel="noopener">📍 高德 App 打开完整三日路线</a>
+          <a class="btn btn-ghost" id="webMapBtn" target="_blank" rel="noopener">🌐 浏览器打开当日路线</a>
+        </div>
+        <div class="map-tip">地图由「高德地图 MCP」生成（maps_schema_personal_map / 高德网页路线），页面直接内嵌高德地图，未使用任何 JS 绘制。若地图区域空白，请点击上方按钮在高德中查看。</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="bar"></span><h2>每日行程规划</h2></div>
+      <div id="planArea"></div>
+    </section>
+
+    <footer>
+      <div class="foot-grad"></div>
+      数据来源：高德地图 MCP（天气 / 地点搜索 / 驾车路径 / 打车 / 个人地图）<br>
+      南京 · 五一三日游 ｜ 生成后自动运行，无需安装任何依赖
+    </footer>
+  </div>
+
+<script>
+(function(){
+  function el(tag, cls, html){
+    var n = document.createElement(tag);
+    if(cls) n.className = cls;
+    if(html != null) n.innerHTML = html;
+    return n;
+  }
+  function imageTag(src){
+    var img = document.createElement('img');
+    img.className = 'spot-img';
+    img.loading = 'lazy';
+    img.alt = '';
+    img.src = src;
+    img.onerror = function(){ img.style.background = 'linear-gradient(135deg,#ff6ec4,#7873f5,#37d6d6)'; img.removeAttribute('src'); };
+    return img;
+  }
+
+  fetch('/api/trip').then(function(r){ return r.json(); }).then(render).catch(function(e){
+    document.getElementById('planArea').innerHTML = '<div class="card" style="padding:20px;color:#b00">数据加载失败：' + e + '</div>';
+  });
+
+  function render(data){
+    document.getElementById('h1').textContent = data.title;
+    document.getElementById('subtitle').textContent = data.subtitle;
+
+    // 天气
+    var wg = document.getElementById('weatherGrid');
+    data.weather.forEach(function(w){
+      var c = el('div', 'weather-card');
+      c.appendChild(el('div', 'date', w.date + '<span>' + w.week + '</span>'));
+      c.appendChild(el('div', 'icon', w.icon));
+      c.appendChild(el('div', 'cond', w.day + '<small>夜间 ' + w.night + '</small>'));
+      c.appendChild(el('div', 'temp', w.low + '° ~ ' + w.high + '°<small>' + w.wind + '</small>'));
+      c.appendChild(el('div', 'meta wind', '💡 ' + w.hint));
+      wg.appendChild(c);
+    });
+    document.getElementById('weatherNote').textContent = data.weather_note;
+
+    // 小贴士
+    var tg = document.getElementById('tipsGrid');
+    data.tips.forEach(function(t){
+      var c = el('div', 'tip');
+      c.appendChild(el('div', 'ti', t.icon));
+      var box = el('div');
+      box.appendChild(el('h3', null, t.title));
+      box.appendChild(el('p', null, t.text));
+      c.appendChild(box);
+      tg.appendChild(c);
+    });
+
+    // 地图 tabs + iframe
+    var tabs = document.getElementById('mapTabs');
+    var frame = document.getElementById('mapFrame');
+    document.getElementById('appMapBtn').href = data.personal_map_uri;
+    function selectDay(i){
+      Array.prototype.forEach.call(tabs.children, function(b, idx){
+        b.className = 'map-tab' + (idx === i ? ' on' : '');
+      });
+      var d = data.days[i];
+      frame.src = d.map_overview;
+      document.getElementById('webMapBtn').href = d.map_overview;
+    }
+    data.days.forEach(function(d, i){
+      var b = el('button', 'map-tab', d.date + ' ' + d.title);
+      b.onclick = function(){ selectDay(i); };
+      tabs.appendChild(b);
+    });
+
+    // 每日行程
+    var area = document.getElementById('planArea');
+    data.days.forEach(function(d, di){
+      var day = el('div', 'card day');
+      var top = el('div', 'day-top');
+      top.appendChild(el('span', 'day-no', 'DAY ' + (di + 1)));
+      top.appendChild(el('h3', 'day-title', d.title));
+      top.appendChild(el('span', 'day-theme', d.theme));
+      top.appendChild(el('span', 'day-meta', '2026.' + d.date + '（' + d.week + '）'));
+      day.appendChild(top);
+
+      var body = el('div', 'day-body');
+      d.spots.forEach(function(s, si){
+        var spot = el('div', 'spot');
+        spot.appendChild(imageTag(s.img));
+        var info = el('div', 'spot-info');
+        info.appendChild(el('div', 'name', '<span class="spot-index">' + (si + 1) + '</span>' + s.name));
+        info.appendChild(el('div', 'time', '🕐 ' + s.time));
+        info.appendChild(el('div', 'addr', '📍 ' + s.addr));
+        info.appendChild(el('div', 'desc', s.desc));
+        var links = el('div', 'links');
+        var nav = el('a', 'btn btn-main', '🧭 导航前往');
+        nav.href = s.map_url; nav.target = '_blank'; nav.rel = 'noopener';
+        links.appendChild(nav);
+        info.appendChild(links);
+        spot.appendChild(info);
+        body.appendChild(spot);
+
+        // 景区之间的打车段
+        if(si < d.rides.length){
+          var r = d.rides[si];
+          var ride = el('div', 'ride');
+          ride.appendChild(el('span', 'car', '🚕'));
+          var txt = el('span', 'route-text', r.from + ' → ' + r.to);
+          ride.appendChild(txt);
+          ride.appendChild(el('span', 'stat', '全程 <b>' + r.distance + '</b> ｜ ' + r.duration));
+          ride.appendChild(el('span', 'spacer'));
+          var taxi = el('a', 'btn btn-main', '高德打车');
+          taxi.href = r.taxi;
+          ride.appendChild(taxi);
+          var route = el('a', 'btn btn-ghost', '查看路线');
+          route.href = r.route; route.target = '_blank'; route.rel = 'noopener';
+          ride.appendChild(route);
+          body.appendChild(ride);
+        }
+      });
+      day.appendChild(body);
+      area.appendChild(day);
+    });
+    selectDay(0);
+  }
+})();
+</script>
+</body>
+</html>
